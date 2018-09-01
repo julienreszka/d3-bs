@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+  <link href="favicon.ico?"
+  rel="icon"
+  >
+
+</head>
+<body>
+  <div id="app">
+    <v-app>
+      <v-content>
+        <v-container text-xs-center>
+          
+          <div 
+            class="svg-container "
+          >
+          <svg 
+            class="svg-content"
+            viewBox="0 0 500 500"
+
+          >
+          </svg>
+          </div>
+          <div>
+            <br>
+            {{circleSize}}
+            <br>
+            <input 
+              type="range"
+              v-model="circleSize"
+              min="0"
+              max="250"
+              step="1"
+            >
+          </div>
+        </v-container>
+      </v-content>
+    </v-app>
+  </div>
+ 
+  <style>
+    .svg-container, .svg-content {
+      border: 1px solid black;
+    }
+    .svg-container {
+      text-align: center;
+      display: inline-block;
+      position: relative;
+      width: 50vh;
+      height: 50vh;
+      vertical-align: middle;
+      overflow: hidden;
+    }
+    .svg-content {
+      display: inline-block;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script>
+    new Vue({ 
+      el: '#app',
+      data () {
+        return {
+          circleSize: 250
+        }
+      },
+      mounted () {
+        var svg = d3.select('svg')
+        this.circle = svg
+          .append('circle')
+          .attr('cx', '250')
+          .attr('cy', '250')
+          .attr('r', this.circleSize)
+      },
+      watch: {
+        circleSize: function(newValue) {
+          this.circle
+            .attr('r', newValue)
+        }
+      }
+    })
+  </script>
+</body>
+</html>
