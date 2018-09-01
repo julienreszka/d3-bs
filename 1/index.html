@@ -26,16 +26,21 @@
           </svg>
           </div>
           <div>
-            <br>
-            {{circleSize}}
-            <br>
-            <input 
+            <!-- <input 
               type="range"
               v-model="circleSize"
               min="0"
               max="250"
               step="1"
-            >
+            > -->
+            <v-slider
+              label="Circle size"
+              v-model="circleSize"
+              min="0"
+              max="250"
+              step="1"
+              thumb-label="always"
+            ></v-slider>
           </div>
         </v-container>
       </v-content>
@@ -69,9 +74,12 @@
   <script>
     new Vue({ 
       el: '#app',
-      data () {
-        return {
-          circleSize: 250
+      data: {
+        circleSize: 250,
+        circleColors: {
+          r:255,
+          g:100,
+          b:50
         }
       },
       mounted () {
@@ -81,9 +89,17 @@
           .attr('cx', '250')
           .attr('cy', '250')
           .attr('r', this.circleSize)
+          .attr('fill', 
+            d3.rgb(
+              this.circleColors.r,
+              this.circleColors.g,
+              this.circleColors.b
+            )
+          )
       },
       watch: {
         circleSize: function(newValue) {
+          console.log(newValue)
           this.circle
             .attr('r', newValue)
         }
